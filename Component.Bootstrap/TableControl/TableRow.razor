@@ -1,0 +1,48 @@
+﻿@typeparam TItem
+
+<tbody class="@CssClass">
+    @foreach (var item in Items)
+    {
+        if (AutoRowTag.Value)
+        {
+            <tr @onclick="OnClickHandler">@ChildContent(item)</tr>
+        }
+        else
+        {
+            @ChildContent(item)
+        }
+    }
+</tbody>
+
+@code {
+    [Parameter]
+    public RenderFragment<TItem> ChildContent { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<TItem> Items { get; set; }
+
+    [Parameter]
+    public Action OnClick { get; set; }
+
+    [Parameter]
+    public bool? AutoRowTag { get; set; }
+
+    [Parameter]
+    public string CssClass { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        AutoRowTag ??= true;
+        CssClass ??= string.Empty;
+
+        base.OnParametersSet();
+    }
+
+    private void OnClickHandler()
+    {
+        if (OnClick != null)
+        {
+            OnClick();
+        }
+    }
+}

@@ -1,0 +1,24 @@
+﻿Toasts
+Paging
+
+Configuration
+
+Defaults {
+    PageSize: 10,
+    Image: ""
+}
+
+1. "accept" parameter mus be coming from configuration file
+
+<input type="file"
+       id="avatar" name="avatar"
+       accept=".png, image/png, .jpg, .jpeg, image/jpeg">
+
+    Allowed recipe picture mimetype
+        jpeg    image/jpeg
+        png     image/png
+        svg     image/svg+xml
+
+
+
+

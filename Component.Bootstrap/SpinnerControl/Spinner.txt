@@ -1,0 +1,13 @@
+﻿<h1>Spinner Component</h1>
+
+
+Parameters                          Default
+----------------------------------  ----------------------------------
+SpinnerType?                        SpinnerType.Border, Optional
+string CssClass                     "text-primary", Optional
+string Style                        "width: 3rem; height: 3rem;", Optional
+string Text                         "Loading", Optional
+
+
+<Spinner Text="Saving..." Type=@SpinnerType.Grow CssStyle="text-success" Style="width: 3rem; height: 3rem;">
+</Spinner>

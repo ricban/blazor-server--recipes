@@ -1,0 +1,88 @@
+﻿<nav class="navbar navbar-expand-md navbar-dark _fixed-top bg-dark">
+    <img src="/images/logo.png" width="64" height="65" class="mr-4 mb-2" alt="Logo" />
+    <a class="navbar-brand mb-0 text-warning" href="/">
+        <h3>Recipe Collections</h3>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+        @*mr-auto*@
+        <ul class="navbar-nav ">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home mr-1" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="categories">
+                    <span class="oi oi-book mr-1" aria-hidden="true"></span> Recipes
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="recipe">
+                    <span class="oi oi-pencil mr-1" aria-hidden="true"></span> Submit Recipe
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="search">
+                    <span class="oi oi-magnifying-glass mr-1" aria-hidden="true"></span> Search
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="users">
+                    <span class="oi oi-people mr-1" aria-hidden="true"></span> Users
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="users">
+                    <span class="oi oi-account-login" aria-hidden="true"></span> Login
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="users">
+                    <span class="oi oi-account-logout mr-1" aria-hidden="true"></span> Logout
+                </NavLink>
+            </li>
+        </ul>
+        @*<form class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>*@
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
+
+
+
+
+@*<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+        <span class="oi oi-home" aria-hidden="true"></span> Home
+    </NavLink>*@
+@*<li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+    </li>*@
+@*<li class="nav-item">
+        <a class="nav-link" href="/categories">Categories</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/recipes/search">Search</a>
+    </li>*@
+
+@*<li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </li>*@
+

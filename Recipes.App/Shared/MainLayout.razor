@@ -1,0 +1,23 @@
+﻿@inherits LayoutComponentBase
+
+<header>
+    <NavMenu />
+</header>
+<main class="my-4 my-sm-5">
+    @Body
+</main>
+<footer class="text-light bg-dark">
+    <div class="container h-100">
+        <div class="row h-100 no-gutters d-flex flex-row justify-content-between align-items-center">
+            <div class="col">
+                © @DateTime.Now.Year Recipe Collections
+            </div>
+            <div class="col d-none d-sm-none d-md-none d-lg-block">
+                <img src="/images/logo.png" class="mx-auto d-block" alt="Logo" />
+            </div>
+            <div class="col">
+                <a href="#" class="float-right">Back to top</a>
+            </div>
+        </div>
+    </div>
+</footer>

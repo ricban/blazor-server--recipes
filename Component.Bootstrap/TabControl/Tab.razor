@@ -1,0 +1,49 @@
+﻿<CascadingValue Value="this">
+    <ul class="nav nav-tabs @CssClass">
+        @foreach (var tabPage in tabPages)
+        {
+            <li class="nav-item" style="cursor: pointer;">
+                <a class="nav-link @GetTabClass(tabPage)" @onclick=@(() => ActivatePage(tabPage))>
+                    @tabPage.TabHeader
+                </a>
+            </li>
+        }
+    </ul>
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string ActiveTabCssClass { get; set; }
+
+    [Parameter]
+    public string CssClass { get; set; }
+
+    public TabPage ActivePage { get; set; }
+    private List<TabPage> tabPages = new List<TabPage>();
+
+    internal void AddPage(TabPage tabPage)
+    {
+        tabPages.Add(tabPage);
+
+        if (tabPages.Count == 1)
+        {
+            ActivePage = tabPage;
+        }
+
+        StateHasChanged();
+    }
+
+    private string GetTabClass(TabPage tabPage)
+    {
+        return tabPage == ActivePage ? $"active {ActiveTabCssClass}" : "";
+    }
+
+    private void ActivatePage(TabPage tabPage)
+    {
+        ActivePage = tabPage;
+    }
+}

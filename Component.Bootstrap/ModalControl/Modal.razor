@@ -1,0 +1,132 @@
+﻿@if (Show)
+{
+    <div class="modal-backdrop" tabindex="-1" role="dialog" @onclick="BackdropClickHandler">
+        <div class="modal-dialog @SizeCssClass modal-dialog-scrollable @(Centered ? "modal-dialog-centered" : "")" role="document" @onclick:stopPropagation>
+            <div class="modal-content">
+                @if (!string.IsNullOrWhiteSpace(Caption) || Header != null)
+                {
+                    <div class="modal-header">
+                        @if (Header != null)
+                        {
+                            @Header
+                        }
+                        else if (!string.IsNullOrWhiteSpace(Caption))
+                        {
+                            <h5 class="modal-title">@Caption</h5>
+                            @if (Closable.Value)
+                            {
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="@(() => CloseDialog())">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            }
+                        }
+                    </div>
+                }
+                <div class="modal-body">
+                    @if (@Body == null)
+                    {
+                        @ChildContent
+                    }
+                    else
+                    {
+                        @Body
+                    }
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Buttons) || Footer != null)
+                {
+                    <div class="modal-footer">
+                        @if (Footer != null)
+                        {
+                            @Footer
+                        }
+                        else if (!string.IsNullOrWhiteSpace(Buttons))
+                        {
+                            @foreach (var item in Buttons.Split(";", StringSplitOptions.None))
+                            {
+                                <button class="btn @ButtonsCssClass" @onclick="@(() => CloseDialog(@item))">@item</button>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment Header { get; set; }
+
+    [Parameter]
+    public RenderFragment Body { get; set; }
+
+    [Parameter]
+    public RenderFragment Footer { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ButtonClickHandler { get; set; }
+
+    [Parameter]
+    public string Caption { get; set; }
+
+    [Parameter]
+    public string SizeCssClass { get; set; }
+
+    [Parameter]
+    public string Buttons { get; set; }
+
+    [Parameter]
+    public string ButtonsCssClass { get; set; }
+
+    [Parameter]
+    public bool Centered { get; set; }
+
+    [Parameter]
+    public bool? Closable { get; set; }
+
+    [Parameter]
+    public bool? StaticBackdrop { get; set; }
+
+    [Parameter]
+    public bool Show { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Buttons ??= "OK;Cancel";
+        ButtonsCssClass ??= "btn-primary col-3 col-sm-3 col-md-3 col-lg-2";
+        Closable ??= !string.IsNullOrWhiteSpace(Caption);
+        StaticBackdrop ??= true;
+
+        base.OnInitialized();
+    }
+
+    public string Result { get; private set; }
+
+    public void ShowDialog()
+    {
+        Show = true;
+    }
+
+    public void CloseDialog(string result = "closed")
+    {
+        Result = result;
+
+        if (ButtonClickHandler.HasDelegate)
+        {
+            ButtonClickHandler.InvokeAsync(result);
+        }
+
+        Show = false;
+    }
+
+    private void BackdropClickHandler()
+    {
+        if (!StaticBackdrop.Value)
+        {
+            CloseDialog();
+        }
+    }
+}

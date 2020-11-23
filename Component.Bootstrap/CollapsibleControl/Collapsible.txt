@@ -1,0 +1,19 @@
+﻿<h1>Collapsible Component</h1>
+
+
+Parameters                          Default
+----------------------------------  ----------------------------------
+string CaptionCollapsed             "", Optional
+string CaptionExpanded              "", Optional
+string CssClass                     "btn-primary mb-2", Optional
+bool Collapsed                      false, Optional
+bool IconOnRight                    false, Optional
+string IconCssClassCollapsed        "oi oi-chevron-top", Optional
+string IconCssClassExpanded         "oi oi-chevron-bottom", Optional
+Func<bool> Disabled                 null
+
+<Collapsible Caption="Preview Markdown" CssClass="btn-info mb-3" Collapsed="true" IconOnRight="true" Disabled=@(() => model.RecipeIngredients.IsNullOrWhiteSpace())>
+    <div class="alert alert-primary" role="alert">
+        A simple primary alert—check it out!
+    </div>
+</Collapsible>

@@ -1,0 +1,95 @@
+﻿<h1>Tab Component</h1>
+
+
+Parameters                          Default
+----------------------------------  ----------------------------------
+string ActiveTabCssClass           "", Optional
+string CssClass                    "", Optional
+
+
+<div class="container">
+    <Tab CssClass="nav-fill bg-light" ActiveTabCssClass="bg-primary text-white font-weight-bold">
+        <TabPage>
+            <TabHeader>
+                <span class="d-block text-left">
+                    Ingredients <span class="oi oi-list mr-2 float-right"></span>
+                </span>
+            </TabHeader>
+            <TabContent>
+                <div class="border p-3">
+                    <h1>The Ingredients Tab</h1>
+                    <div class="alert alert-primary" role="alert">
+                        A simple primary alert—check it out!
+                    </div>
+                </div>
+            </TabContent>
+        </TabPage>
+        <TabPage>
+            <TabHeader>
+                <span class="d-block text-left">
+                    <span class="oi oi-project text-right"></span>
+                    <span class="float-right">Steps</span>
+                </span>
+            </TabHeader>
+            <TabContent>
+                <div class="border p-3">
+                    <h1>The Steps Tab</h1>
+                    <div class="alert alert-secondary" role="alert">
+                        A simple secondary alert—check it out!
+                    </div>
+                </div>
+            </TabContent>
+        </TabPage>
+        <TabPage>
+            <TabHeader>
+                <span class="d-block text-left">Tab 3</span>
+            </TabHeader>
+            <TabContent>
+                <div class="border p-3">
+                    <h1>The Tab 3 Tab</h1>
+                    <div class="alert alert-success" role="alert">
+                        A simple success alert—check it out!
+                    </div>
+                </div>
+            </TabContent>
+        </TabPage>
+        <TabPage>
+            <TabHeader>
+                <span class="d-block text-right">Tab 4</span>
+            </TabHeader>
+            <TabContent>
+                <div class="border p-3">
+                    <h1>The Tab 4 Tab</h1>
+                    <div class="alert alert-success" role="alert">
+                        A simple success alert—check it out!
+                    </div>
+                </div>
+            </TabContent>
+        </TabPage>
+        <TabPage>
+            <TabHeader>
+                Tab 5
+            </TabHeader>
+            <TabContent>
+                <div class="border p-3">
+                    <h1>The Tab 5 Tab</h1>
+                    <div class="alert alert-success" role="alert">
+                        A simple success alert—check it out!
+                    </div>
+                </div>
+            </TabContent>
+        </TabPage>
+
+    </Tab>
+</div>
+
+@code {
+    private List<TabInfo> tabs = new List<TabInfo>
+    {
+        new TabInfo { Index = 0, Text = "Ingredients", Icon = "oi oi-list", Class = "active"},
+        new TabInfo { Index = 1, Text = "Steps", Icon = "oi oi-project", Class = "d-none"},
+        new TabInfo { Index = 2, Text = "Tab 3", Icon = "", Class = "d-none"},
+        new TabInfo { Index = 3, Text = "Tab 4", Icon = "", Class = "d-none"},
+        new TabInfo { Index = 4, Text = "Tab 5", Icon = "", Class = "d-none"}
+    };
+}

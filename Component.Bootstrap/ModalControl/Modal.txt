@@ -1,0 +1,116 @@
+﻿<h1>Dialog Component</h1>
+
+
+Parameters                          Default
+----------------------------------  ----------------------------------
+string CaptionCollapsed             "", Optional
+string CaptionExpanded              "", Optional
+string CssClass                     "btn-primary mb-2", Optional
+bool Collapsed                      false, Optional
+bool IconOnRight                    false, Optional
+string IconCssClassCollapsed        "oi oi-chevron-top", Optional
+string IconCssClassExpanded         "oi oi-chevron-bottom", Optional
+Func<bool> Disabled                 null
+
+RenderFragment Header                       null, Optional. Priority over "Caption" if both are provided
+RenderFragment Body                         null, Optional
+RenderFragment Footer                       null, Optional. Priority over "Buttons" if both are provided
+RenderFragment ChildContent                 null, Optional
+EventCallback<string> ButtonClickHandler    null, Optional
+string Caption                              "", Optional
+string SizeCssClass                         "", Optional
+string Buttons                              "", Optional. Default: "OK;Cancel"
+string ButtonsCssClass                      "", Optional. Default: "btn-primary col-3 col-sm-3 col-md-3 col-lg-2"
+bool Centered                               false, Optional
+bool? Closable                              false, Optional. Default: true if "Caption" has value
+bool? StaticBackdrop                        false, Optional. Default: true
+bool Show                                   false, Optional
+
+
+
+
+<button class="btn btn-primary" @onclick="@(() => showDialog1 = true)">Open Modal Dialog 1</button>
+<h2>Modal Dialog 1 Result: @dialogResult1</h2>
+
+<Modal Show="@showDialog1">
+    <Header>
+        <h5 class="modal-title">Modal Dialog 1</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="@(() => ModalDialog1Handler("closed"))">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </Header>
+    <Body>
+        Are you sure you want to delete the recipe?
+    </Body>
+    <Footer>
+        <button class="btn btn-primary" @onclick="@(() => ModalDialog1Handler("OK"))">OK</button>
+        <button class="btn btn-primary" @onclick="@(() => ModalDialog1Handler("Cancel"))">Cancel</button>
+    </Footer>
+</Modal>
+
+
+
+<button class="btn btn-primary" @onclick="@(() => showDialog2 = true)">Open Modal Dialog 2</button>
+<h2>Modal Dialog 2 Result: @dialogResult2 - @showDialog2</h2>
+
+<Modal Caption="Modal Dialog 2" Centered="true" Closable="true" Show="@showDialog2" Buttons="Yes;No" ButtonsCssClass="btn-info col-3 ml-2" ButtonClickHandler=@ModalDialog2Handler>
+    <Body>
+        Are you sure you want to delete the recipe?
+    </Body>
+</Modal>
+
+Or
+
+<Modal Caption="Modal Dialog 2" Centered="true" Closable="true" Show="@showDialog2" Buttons="Yes;No" ButtonsCssClass="btn-info col-3 ml-2" @ref="dialog" ButtonClickHandler=@ModalDialog2Handler>
+    Are you sure you want to delete the recipe?
+</Modal>
+
+
+<button class="btn btn-primary" @onclick="ShowDialog3">Open Modal Dialog 3 Option 1</button>
+<button class="btn btn-primary" @onclick="@(() => dialog.ShowDialog())">Open Modal Dialog 3 Option 2</button>
+<h2>Modal Dialog 3 Result: @dialogResult3</h2>
+
+<Modal @ref="dialog" Caption="Modal Dialog 3" SizeCssClass="modal-xl" Closable="false" StaticBackdrop="false" ButtonClickHandler="@ModalDialog3Handler">
+    Are you sure you want to delete the recipe?
+</Modal>
+
+
+@code {
+
+    // Modal Option 1
+
+    private bool showDialog1 = true;
+    private string dialogResult1 = "";
+
+    private void ModalDialog1Handler(string value)
+    {
+        dialogResult1 = value;
+        showDialog1 = false;
+    }
+
+    // Modal Option 2
+
+    private bool showDialog2 = true;
+    private string dialogResult2 = "";
+
+    private void ModalDialog2Handler(string value)
+    {
+        dialogResult2 = value;
+        showDialog2 = false;
+    }
+
+    // Modal Option 3
+
+    private Modal dialog;
+    private string dialogResult3 = "";
+
+    private void ShowDialog3()
+    {
+        dialog.ShowDialog();
+    }
+
+    private void ModalDialog3Handler(string value)
+    {
+        dialogResult3 = value;
+    }
+}

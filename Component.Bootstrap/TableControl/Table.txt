@@ -1,0 +1,51 @@
+﻿<h1>Table Component</h1>
+
+
+Parameters                          Default
+----------------------------------  ----------------------------------
+
+***** TableHeader
+string CssClass                     "", Optional
+
+***** TableHeader
+bool? AutoRowTag                    true, optional
+string CssClass                     "", Optional
+
+***** TableRow
+bool? AutoRowTag                    true, optional
+string CssClass                     "", Optional
+Action OnClick                      null, Optional. Need AutoRowTag="true" to work
+                                        ex. OnClick="@(() => ParentMethod(1))"
+                                            OnClick="ParentMethod"
+
+***** TableFooter
+bool? AutoRowTag                    true, optional
+string CssClass                     "", Optional
+
+
+
+<div class="container m-5 table-responsive">
+    <Table CssClass="table-hover">
+        <TableHeader CssClass="bg-light" AutoRowTag="false">
+            <tr class="text-primary">
+                <th>Id</th>
+                <th>First</th>
+                <th>Last</th>
+                <th>Age</th>
+            </tr>
+        </TableHeader>
+        <TableRow CssClass="bg-white" Items="TableItems" AutoRowTag="false">
+            <tr class="text-info">
+                <td>@context.Id</td>
+                <td>@context.First</td>
+                <td>@context.Last</td>
+                <td>@context.Age</td>
+            </tr>
+        </TableRow>
+        <TableFooter CssClass="bg-secondary" AutoRowTag="false">
+            <tr class="text-white">
+                <td colspan="4">4 Persons</td>
+            </tr>
+        </TableFooter>
+    </Table>
+</div>

@@ -1,0 +1,134 @@
+﻿@page "/search"
+
+@using Library.Core.Extensions
+@using Recipes.App.Models
+@using Recipes.Core.Enumerations
+@using Recipes.Core.Models
+@using Serilog
+
+@inject ApplicationState State
+@inject RecipeService Service
+
+<div class="d-flex flex-row flex-wrap container">
+    <div class="col-12 col-sm-12 col-md-4 mb-4 mb-sm-4">
+        <div class="card shadow">
+            <div class="card-header text-white bg-purple-dark">
+                <span class="oi oi-magnifying-glass mr-1" aria-hidden="true"></span> Recipe Search
+            </div>
+            <div class="card-body">
+                <EditForm Model=@model OnValidSubmit="@SubmitValidFormAsync">
+                    <DataAnnotationsValidator />
+                    <div class="form-group">
+                        <label for="searchType">Search Type</label>
+                        <InputSelect id="searchType" class="form-control" @bind-Value="model.Type">
+                            <option value="" selected disabled hidden>Choose Type...</option>
+                            <option value="@SearchMode.RecipeName.ToString()">Recipe Name</option>
+                            <option value="@SearchMode.RecipeIngredient.ToString()">Recipe Ingredient</option>
+                            <option value="@SearchMode.RecipeAuthor.ToString()">Recipe Author</option>
+                        </InputSelect>
+                        <ValidationMessage For="() => model.Type" class="invalid-feedback" />
+                    </div>
+                    <div class="form-group">
+                        <label for="searchText">Search Text</label>
+                        <InputText id="searchText" class="form-control" placeholder="Enter Keywords" @bind-Value="model.Text" />
+                        <ValidationMessage For="() => model.Text" class="invalid-feedback" />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block mt-4 @(searching.IIf("disabled", ""))">
+                        <span class="spinner-border spinner-border-sm mr-2 @(searching.IIf("", "d-none"))" role="status" aria-hidden="true"></span>
+                        @searching.IIf("Searching...", "Search")
+                    </button>
+                </EditForm>
+            </div>
+        </div>
+        @if (result != null)
+        {
+            <div class="alert alert-@alertType mt-5 shadow" role="alert">
+                <h5>@alertMessage</h5>
+            </div>
+        }
+    </div>
+    <div class="col-12 col-sm-12 col-md-8">
+        <div class="card h-100 shadow" style="min-height: 500px;">
+            <div class="card-header w-100 text-white bg-purple-dark">
+                Found @(result?.Items?.Count > 1 ? "Recipes" : "Recipe")
+            </div>
+            <div class="card-body bg-light">
+                @if (searchFailed)
+                {
+                    <div class="row">
+                        <div class="alert alert-danger text-center font-weight-bold p-5 m-5 w-100 shadow" role="alert">
+                            Sorry, the search operation failed due to an error.
+                        </div>
+                    </div>
+                }
+                else if (result != null)
+                {
+                    <div class="row row-cols-1 row-cols-sm-2">
+                        @foreach (var item in result.Items!)
+                        {
+                            <div class="col-md-12 col-lg-6 mb-4 h-100">
+                                <div class="card h-100 shadow">
+                                    <div class="card-header">
+                                        <span class="font-weight-bold">@item.CategoryName</span>
+                                    </div>
+                                    <img src="@item.RecipeVideo.GetYoutubeThumbnailImageURL()" class="card-img-top" alt=@($"{item.RecipeName} Picture")>
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-1" title="Recipe Name">@item.RecipeName</h5>
+                                        <p class="card-text mb-4" title="Recipe Author">@item.RecipeAuthor</p>
+                                        <a href="/recipe/@item.RecipeId" target="_blank" rel="noopener noreferrer" class="btn btn-info mr-2 mt-2">View Details</a>
+                                        <a href="@item.RecipeVideo" target="_blank" rel="noopener noreferrer" class="btn btn-info mt-2">
+                                            Watch Video <span class="oi oi-external-link ml-2"></span>
+                                        </a>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        <small class="badge badge-warning float-left" title="Recipe Id">@item.RecipeId</small>
+                                        <small class="float-right" title="Last Updated">@item.LastUpdated.ToString("MMMM d, yyyy")</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool searchFailed;
+    private bool searching;
+    private string alertMessage = string.Empty;
+    private string alertType = string.Empty;
+    private ViewModels.Search model = default!;
+    private PagedData<ViewModels.Recipe> result = default!;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        model = new ViewModels.Search { PageSize = State.Defaults.PageSize };
+    }
+
+    private async Task SubmitValidFormAsync()
+    {
+        if (!searching)
+        {
+            searching = true;
+
+            try
+            {
+                result = await Service.SearchRecipesAsync(model).ConfigureAwait(false);
+                alertMessage = $"{result.Items.Count} {(result.Items.Count > 1 ? "matches" : "match")} found.";
+                alertType = result.Items.Count > 0 ? "success" : "warning";
+                searchFailed = false;
+            }
+            catch (Exception ex)
+            {
+                searchFailed = true;
+                Log.Error(ex.ToText());
+            }
+
+            searching = false;
+        }
+    }
+}

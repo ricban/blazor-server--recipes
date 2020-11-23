@@ -1,0 +1,159 @@
+﻿@page "/categories"
+@page "/categories/{CategoryId:int}"
+
+@using Component.Bootstrap.SpinnerControl
+@using Component.Bootstrap.TableControl
+@using Library.Core.Extensions
+@using Recipes.App.Models
+@using Recipes.App.ViewModels
+@using Recipes.Core.Enumerations
+@using Recipes.Core.Models
+@using Serilog
+
+@inject ApplicationState State
+@inject RecipeService Service
+@inject NavigationManager NavigationManager
+
+<div class="d-flex flex-row flex-wrap container">
+    @if (loadFailed)
+    {
+        <div class="alert alert-danger text-center font-weight-bold p-5 w-100 shadow" role="alert">
+            Sorry, we could not load this page due to an error.
+        </div>
+    }
+    else
+    {
+        <div class="col-12 col-sm-12 col-md-4 mb-4 mb-sm-4">
+            <div class="card h-100 shadow">
+                <div class="card-header text-white bg-purple-dark">
+                    Recipe Categories
+                </div>
+                <div class="card-body">
+                    @if (categories == null)
+                    {
+                        <Spinner />
+                    }
+                    else
+                    {
+                        <Table CssClass="table-borderless table-hover table-sm">
+                            <TableRow Items="categories" AutoRowTag="false">
+                                <tr @onclick="@(() => CategoryClick(context.CategoryId))" class="@context.CategoryId.Equals(CategoryId).IIf("table-active", "")">
+                                    <td>
+                                        @context.CategoryName
+                                        <span class="badge badge-success badge-pill float-right">@context.RecipesCount</span>
+                                    </td>
+                                </tr>
+                            </TableRow>
+                        </Table>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-8">
+            <div class="card shadow">
+                <div class="card-header text-white bg-purple-dark">
+                    @categoryName Recipes
+                </div>
+                <div class="card-body">
+                    @if (recipes == null)
+                    {
+                        <Spinner />
+                    }
+                    else
+                    {
+                        <div class="row row-cols-1 row-cols-sm-2">
+                            @foreach (var item in recipes.Items)
+                            {
+                                <div class="col-md-12 col-lg-6 mb-4 h-100">
+                                    <div class="card h-100 shadow">
+                                        <img src="@item.RecipeVideo.GetYoutubeThumbnailImageURL()" class="card-img-top" alt=@($"{item.RecipeName} Picture")>
+                                        <div class="card-body bg-light">
+                                            <h5 class="card-title mb-1" title="Recipe Name">@item.RecipeName</h5>
+                                            <p class="card-text mb-4" title="Recipe Author">@item.RecipeAuthor</p>
+                                            <a href="/recipe/@item.RecipeId" target="_blank" rel="noopener noreferrer" class="btn btn-info mr-2 mt-2">View Details</a>
+                                            <a href="@item.RecipeVideo" target="_blank" rel="noopener noreferrer" class="btn btn-info mt-2">
+                                                Watch Video <span class="oi oi-external-link ml-2"></span>
+                                            </a>
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                            <small class="badge badge-warning float-left" title="Recipe Id">@item.RecipeId</small>
+                                            <small class="float-right" title="Last Updated">@item.LastUpdated.ToString("MMMM d, yyyy")</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int CategoryId { get; set; }
+
+
+    private bool loadFailed;
+    private bool initializedFailed;
+    private bool parametersSetFailed;
+    private string categoryName = default!;
+    private PagedData<ViewModels.Recipe> recipes = default!;
+    private List<CategoryWithRecipes> categories = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(false);
+
+        try
+        {
+            categories = await Service.GetCategoriesWithRecipesAsync().ConfigureAwait(false);
+
+            if (CategoryId == 0 && categories.Count > 0)
+            {
+                CategoryId = categories.FirstOrDefault().CategoryId;
+            }
+        }
+        catch (Exception ex)
+        {
+            initializedFailed = true;
+            Log.Error(ex.ToText());
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync().ConfigureAwait(false);
+
+        if (!initializedFailed)
+        {
+            var searchParameters = new ViewModels.Search
+            {
+                Type = $"{SearchMode.RecipeCategory}",
+                Text = $"{CategoryId}",
+                PageNumber = 1,
+                PageSize = 0,
+                TakeCount = 0
+            };
+
+            try
+            {
+                recipes = await Service.SearchRecipesAsync(searchParameters).ConfigureAwait(false);
+                categoryName = categories.FirstOrDefault(f => f.CategoryId == CategoryId).CategoryName;
+            }
+            catch (Exception ex)
+            {
+                parametersSetFailed = true;
+                Log.Error(ex.ToText());
+            }
+        }
+
+        loadFailed = initializedFailed || parametersSetFailed;
+    }
+
+    protected void CategoryClick(int categoryId)
+    {
+        NavigationManager.NavigateTo($"{Route.App.Categories}/{categoryId}");
+    }
+}

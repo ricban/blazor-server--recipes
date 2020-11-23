@@ -1,0 +1,32 @@
+﻿<h1>MdPreview Component</h1>
+
+
+Parameters                          Default
+----------------------------------  ----------------------------------
+string Text                         Mandatory
+
+
+div class="col-6">
+    <span class="d-block mb-2">oninput event binding</span>
+    <textarea cols="50" rows="10" @bind-value="Body" @bind-value:event="oninput" />
+
+    <span class="d-block my-2">onchange event binding</span>
+    <textarea cols="50" rows="10" @bind-value="Body2" @bind-value:event="onchange" />
+</div>
+
+<span class="d-block my-2">oninput event binding Preview</span>
+
+<div class="col-6">
+    <MdPreview Text="@Body" />
+</div>
+
+<span class="d-block my-2">onchange event binding Preview</span>
+
+<div class="col-6">
+    <MdPreview Text="@Body2" />
+</div>
+
+@code {
+    private string Body { get; set; }
+    private string Body2 { get; set; }
+}

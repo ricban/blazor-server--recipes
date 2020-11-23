@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\WeatherForecast.cs" />
+    <Compile Remove="Data\WeatherForecastService.cs" />
+    <Compile Remove="Models\Category.cs" />
+    <Compile Remove="Models\RecipeModel.cs" />
+    <Compile Remove="ViewModels\CategoryResponse.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Counter.razor" />
+    <Content Remove="Pages\FetchData.razor" />
+    <Content Remove="Pages\IndexOLD.razor" />
+    <Content Remove="Pages\YRecipe.razor" />
+    <Content Remove="Pages\YRecipes.razor" />
+    <Content Remove="Pages\YRecipeSearchResult.razor" />
+    <Content Remove="Pages\YSearch.razor" />
+    <Content Remove="Shared\ONavMenu.razor" />
+    <Content Remove="wwwroot\css\carousel.css" />
+    <Content Remove="wwwroot\css\site - Copy.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Core\Library.Core.csproj" />
+    <ProjectReference Include="..\Component.Bootstrap\Component.Bootstrap.csproj" />
+    <ProjectReference Include="..\Recipes.Core\Recipes.Core.csproj" />
+  </ItemGroup>
+
+</Project>

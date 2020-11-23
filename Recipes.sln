@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipes.App", "Recipes.App\Recipes.App.csproj", "{126BA767-0454-4D6B-A7AE-1C51608C0A6A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Core", "Library.Core\Library.Core.csproj", "{7BA978AF-1669-4C4D-B91F-A9BE03E958B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipes.Repositories", "Recipes.Repositories\Recipes.Repositories.csproj", "{B07292CA-7579-47F3-80B7-6D5FB618FB7C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipes.Entities", "Recipes.Entities\Recipes.Entities.csproj", "{5230588D-71EF-43DE-A0F6-E30EC290353A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Component.Bootstrap", "Component.Bootstrap\Component.Bootstrap.csproj", "{98DF7A18-9B10-4C3E-A952-A250805471B5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipes.Core", "Recipes.Core\Recipes.Core.csproj", "{960752CE-96A6-45A7-8F15-868CDEB3DB7C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipes.Api", "Recipes.Api\Recipes.Api.csproj", "{079584AC-71DB-440C-A785-7808A803C149}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{126BA767-0454-4D6B-A7AE-1C51608C0A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{126BA767-0454-4D6B-A7AE-1C51608C0A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{126BA767-0454-4D6B-A7AE-1C51608C0A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{126BA767-0454-4D6B-A7AE-1C51608C0A6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BA978AF-1669-4C4D-B91F-A9BE03E958B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BA978AF-1669-4C4D-B91F-A9BE03E958B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BA978AF-1669-4C4D-B91F-A9BE03E958B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA978AF-1669-4C4D-B91F-A9BE03E958B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B07292CA-7579-47F3-80B7-6D5FB618FB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B07292CA-7579-47F3-80B7-6D5FB618FB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B07292CA-7579-47F3-80B7-6D5FB618FB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B07292CA-7579-47F3-80B7-6D5FB618FB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5230588D-71EF-43DE-A0F6-E30EC290353A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5230588D-71EF-43DE-A0F6-E30EC290353A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5230588D-71EF-43DE-A0F6-E30EC290353A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5230588D-71EF-43DE-A0F6-E30EC290353A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DF7A18-9B10-4C3E-A952-A250805471B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DF7A18-9B10-4C3E-A952-A250805471B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DF7A18-9B10-4C3E-A952-A250805471B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DF7A18-9B10-4C3E-A952-A250805471B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{960752CE-96A6-45A7-8F15-868CDEB3DB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{960752CE-96A6-45A7-8F15-868CDEB3DB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{960752CE-96A6-45A7-8F15-868CDEB3DB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{960752CE-96A6-45A7-8F15-868CDEB3DB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{079584AC-71DB-440C-A785-7808A803C149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079584AC-71DB-440C-A785-7808A803C149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079584AC-71DB-440C-A785-7808A803C149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079584AC-71DB-440C-A785-7808A803C149}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68A8A3C0-33C8-40AD-9216-A3C2FB9ABD23}
+	EndGlobalSection
+EndGlobal

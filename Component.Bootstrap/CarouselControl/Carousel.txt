@@ -1,0 +1,33 @@
+﻿<h1>Carousel Component</h1>
+
+
+Parameters                          Default
+----------------------------------  ----------------------------------
+CarouselTransition? TransitionType  CarouselTransition.Slide, Optional
+public int? ScrollInterval          5000, Optional
+public bool? ShowIndicators         true, Optional
+public bool? ShowControls           true, Optional
+public string CssClass              "", Optional
+
+
+<div class="container m-5 bg-secondary col-sm-6" style="height: 300px;">
+    <Carousel Items="CarouselItems" TItem="CarouselItem" TransitionType=CarouselTransition.Fade ScrollInterval="100" ShowIndicators="true" ShowControls="true" CssClass="">
+        <ItemTemplate>
+            <img src="@context.Image" class="d-block w-100 h-100" alt="@context.ImageAlt">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@context.Caption</h5>
+                <p>@context.Body</p>
+            </div>
+        </ItemTemplate>
+    </Carousel>
+</div>
+
+@code {
+    private List<CarouselItem> CarouselItems = new List<CarouselItem>
+    {
+        new CarouselItem { Caption = "Caption 1", Body = "SubCaption 1", Image = "https://i.ytimg.com/vi/EzmGwF6uS7k/maxresdefault.jpg", ImageAlt = "Image 1"},
+        new CarouselItem { Caption = "Caption 2", Body = "SubCaption 2", Image = "https://i.ytimg.com/vi/ZWMNfZwkioE/maxresdefault.jpg", ImageAlt = "Image 2"},
+        new CarouselItem { Caption = "Caption 3", Body = "SubCaption 3", Image = "https://i.ytimg.com/vi/Wp1nEm4eeb4/maxresdefault.jpg", ImageAlt = "Image 3"},
+        new CarouselItem { Caption = "Caption 4", Body = "SubCaption 4", Image = "https://i.ytimg.com/vi/blOFhcWgH7Y/maxresdefault.jpg", ImageAlt = "Image 4"}
+    };
+}

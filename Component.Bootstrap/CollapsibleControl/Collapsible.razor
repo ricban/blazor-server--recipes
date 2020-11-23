@@ -1,0 +1,74 @@
+﻿<button type="button" @onclick="@Toggle" class="btn @CssClass @(Collapsed ? "mb-3" : "")" disabled=@Disabled?.Invoke()>
+    @if (!IconOnRight)
+    {
+        <span class="@(Collapsed ? IconCssClassCollapsed : IconCssClassExpanded) mr-2"></span>
+    }
+
+    @if (Collapsed)
+    {
+        @CaptionCollapsed
+    }
+    else
+    {
+        @CaptionExpanded
+    }
+
+    @if (IconOnRight)
+    {
+        <span class="@(Collapsed ? IconCssClassCollapsed : IconCssClassExpanded) ml-2"></span>
+    }
+</button>
+
+@if (Collapsed)
+{
+    @ChildContent
+}
+
+@code
+{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public bool Collapsed { get; set; }
+
+    [Parameter]
+    public bool IconOnRight { get; set; }
+
+    [Parameter]
+    public string CaptionCollapsed { get; set; }
+
+    [Parameter]
+    public string CaptionExpanded { get; set; }
+
+    [Parameter]
+    public string CssClass { get; set; }
+
+    [Parameter]
+    public string SpacingCssClass { get; set; }
+
+    [Parameter]
+    public string IconCssClassCollapsed { get; set; }
+
+    [Parameter]
+    public string IconCssClassExpanded { get; set; }
+
+    [Parameter]
+    public Func<bool> Disabled { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        CaptionCollapsed ??= "";
+        CaptionExpanded ??= "";
+        CssClass ??= "btn-primary";
+        IconCssClassCollapsed ??= "oi oi-chevron-top";
+        IconCssClassExpanded ??= "oi oi-chevron-bottom";
+
+        base.OnParametersSet();
+    }
+
+    private void Toggle()
+    {
+        Collapsed = !Collapsed;
+    }
+}

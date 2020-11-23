@@ -1,0 +1,26 @@
+﻿/*
+@import "carousel.css";
+@import "tab.css";
+@import "table.css";
+*/
+
+/*
+    Modal Component
+*/
+
+.modal-backdrop {
+    background-color: rgba(0,0,0,0.5);
+}
+
+/*
+    Markdown Component
+*/
+
+.md-container {
+    overflow: auto;
+}
+
+.md-container.readonly {
+    border-color: #28a745;
+    background-color: #e9ecef;
+}

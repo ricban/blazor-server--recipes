@@ -1,0 +1,12 @@
+﻿@if (!string.IsNullOrEmpty(Text))
+{
+    @((MarkupString)Html)
+}
+
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    private string Html => Markdig.Markdown.ToHtml(Text);
+}
